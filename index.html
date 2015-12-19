@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="github">
+<head>
+    <title>GitHub repo</title>
+	<meta charset="utf-8" />
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" data-ng-controller="GitHubController as vm">
+        <form class="well">
+            <div class="form-group">
+                <label for="inputUserName">GitHub user name:</label>
+                <input class="form-control" 
+                    id="inputUserName" 
+                    placeholder="User Name"
+                    data-ng-model="vm.username"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="selectSort">Sort By:</label>
+                <select class="form-control" id="selectSort" data-ng-model="vm.sortBy" required>
+                    <option data-ng-repeat="option in vm.sortList" value="{{option}}">{{option}}</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" data-ng-click="vm.searchRepo()">
+                Search GitHub repo
+            </button>
+        </form>
+        <div class="row">
+            <table data-ng-if="vm.repos.length > 0" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Full Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Url
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="repo in vm.repos">
+                        <td><a>{{repo.full_name}}</a></td>
+                        <td>{{repo.description}}</td>
+                        <td>{{repo.html_url}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div data-ng-if="vm.repos.length === 0">
+                Sorry no repositories for this user
+            </div>
+        </div> 
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="src/app/application.module.js"></script>
+    <script src="src/app/github.controller.js"></script>
+    <script src="src/app/github.service.js"></script>
+    <script src="src/app/github.factory.js"></script>
+    <script src="src/app/github.constant.js"></script>
+</body>
+</html>
